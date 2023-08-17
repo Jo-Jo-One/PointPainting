@@ -75,8 +75,45 @@ def visuallize_pointcloud(pointcloud: np.array,path:str,filename:str,palette:np.
     
         pcd.points = o3d.utility.Vector3dVector(xyz)
         pcd.colors = o3d.utility.Vector3dVector(colors)
-        # o3d.visualization.draw_geometries([pcd])
+        o3d.visualization.draw_geometries([pcd])
         o3d.io.write_point_cloud(os.path.join(path,"results","painted_cloud",filename+".pcd"),pcd)
+        
+        
+        
+def visualize_with_window(pointcloud: np.array,path:str,filename:str,palette:np.array):
+    semantics  = pointcloud[:, 3]
+    xyz = pointcloud[:, 0:3]
+    pcd = o3d.geometry.PointCloud()
+    
+    colors = semantics_to_colors(semantics,palette)
+    pcd.points = o3d.utility.Vector3dVector(xyz)
+    pcd.colors = o3d.utility.Vector3dVector(colors)
+    
+    vis = o3d.visualization.Visualizer()
+    vis.create_window()
+    vis.add_geometry(pcd)
+    vis.run()
+    vis.destroy_window()
+    
+    
+def visualize_object(pointcloud: np.array,path:str,filename:str,palette:np.array):
+    semantics  = pointcloud[:, 3]
+    xyz = pointcloud[:, 0:3]
+    pcd = o3d.geometry.PointCloud()
+    
+    semantics_object  = pointcloud[np.where(pointcloud[:, 3]==13)][:, 3]
+    object = pointcloud[np.where(pointcloud[:, 3]==13)][:, 0:3]
+            
+    
+    colors = semantics_to_colors(semantics_object,palette)
+    pcd.points = o3d.utility.Vector3dVector(object)
+    pcd.colors = o3d.utility.Vector3dVector(colors)
+    
+    vis = o3d.visualization.Visualizer()
+    vis.create_window()
+    vis.add_geometry(pcd)
+    vis.run()
+    vis.destroy_window()
         
 
 

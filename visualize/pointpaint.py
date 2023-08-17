@@ -16,6 +16,12 @@ model = init_model(config_file, checkpoint_file, device='cuda:0')
 img = 'C:/Users/JY/Desktop/Study/Programmers/Final project/visualize/training/image_2/000004.png'
 lidar_dir = 'C:/Users/JY/Desktop/Study/Programmers/Final project/visualize/training/velodyne/000004.bin'
 
+palette = [[128, 64, 128], [244, 35, 232], [70, 70, 70], [102, 102, 156],
+           [190, 153, 153], [153, 153, 153], [250, 170, 30], [220, 220, 0],
+           [107, 142, 35], [152, 251, 152], [70, 130, 180],
+           [220, 20, 60], [255, 0, 0], [0, 0, 142], [0, 0, 70],
+           [0, 60, 100], [0, 80, 100], [0, 0, 230], [119, 11, 32]]
+
 # result = inference_model(model, img)
 result = inference_model(model, img)
 seg_img = result.pred_sem_seg.data[0].cpu()
@@ -64,6 +70,9 @@ for i in range(pts_2D.shape[0]):
 stacked_img = np.vstack((rgb_img, segmented_img,fused_img))
 cv2.imwrite('projection.png',stacked_img)
 
-# rgb_pointcloud = np.hstack((pts_3D_img[:,:3], semantic))
-# ut.visuallize_pointcloud(rgb_pointcloud,args.path,filename[:-4],palette)
+rgb_pointcloud = np.hstack((pts_3D_img[:,:3], semantic))
+# ut.visuallize_pointcloud(rgb_pointcloud,"C:/Users/JY/Desktop/Study/Programmers/Final project/visualize","000004",palette)
+# ut.visualize_with_window(rgb_pointcloud,"C:/Users/JY/Desktop/Study/Programmers/Final project/visualize","000004",palette)
+ut.visualize_object(rgb_pointcloud,"C:/Users/JY/Desktop/Study/Programmers/Final project/visualize","000004",palette)
+
 
