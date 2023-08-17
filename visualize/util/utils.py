@@ -112,7 +112,7 @@ def projection_velo_to_cam(R0, Tr_lidar_to_cam,P):
     R0 = R0.reshape(3, 3)
     R_rect[:3, :3] = R0
     P_ = P.reshape((3, 4))
-    print(P_.shape, R_rect.shape, Tr_lidar_to_cam.shape)
+    Tr_lidar_to_cam = np.insert(Tr_lidar_to_cam,3,values=[0,0,0,1],axis=0)
     proj_mat = P_ @ R_rect @ Tr_lidar_to_cam
     return proj_mat
 

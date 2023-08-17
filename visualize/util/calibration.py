@@ -7,7 +7,7 @@ class CalibrationData:
         P = calibs['P2']
         
         self.P = np.reshape(P, (3, 4))
-        self.Tr_lidar_to_cam = np.reshape(calibs["Tr_velo_to_cam"], (4, 3))
+        self.Tr_lidar_to_cam = np.reshape(calibs["Tr_velo_to_cam"], (3,4))
         R0 = calibs["R0_rect"]
         self.R0 = np.reshape(R0, (3, 3))
 

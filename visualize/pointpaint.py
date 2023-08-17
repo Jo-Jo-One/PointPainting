@@ -18,7 +18,7 @@ lidar_dir = 'C:/Users/JY/Desktop/Study/Programmers/Final project/visualize/train
 
 # result = inference_model(model, img)
 result = inference_model(model, img)
-seg_img = result[0]
+seg_img = result.pred_sem_seg.data[0].cpu()
 
 # show_result_pyplot(model, img, result, show=True)
 # show_result_pyplot(model, img, result, show=True, out_file='result.jpg', opacity=0.5)
@@ -27,7 +27,6 @@ calib = ca.CalibrationData('C:/Users/JY/Desktop/Study/Programmers/Final project/
 R = calib.R0
 P = calib.P
 Tr_lidar_to_cam = calib.Tr_lidar_to_cam
-print(R.shape, P.shape, Tr_lidar_to_cam.shape)
 P_lidar_to_cam = ut.projection_velo_to_cam(R, Tr_lidar_to_cam,P)
 
 
