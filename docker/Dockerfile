@@ -14,5 +14,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 
 ENV PATH=$CONDA_DIR/bin:$PATH
 
-RUN git clone https://github.com/open-mmlab/mmsegmentation.git /mmsegmentation
+RUN git clone https://github.com/Jo-Jo-One/PointPainting.git /PointPainting
+WORKDIR /PointPainting
+RUN git checkout dockerconfig
 RUN conda install --file spec-file.txt
