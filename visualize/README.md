@@ -1,4 +1,4 @@
-#PointPainting Implementation
+# PointPainting Implementation
 ---
 
 ## Installation
