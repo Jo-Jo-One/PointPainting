@@ -51,7 +51,7 @@ def semantics_to_colors(semantics:np.array,palette:np.array) -> np.array:
 
 
 
-def visuallize_pointcloud(pointcloud: np.array,path:str,filename:str,palette:np.array) -> None:
+def visuallize_pointcloud(pointcloud: np.array,palette:np.array) -> None:
         """
         @brief      Visualizing colored point cloud
         @param      pointcloud  in lidar coordinate [npoints, 4] in format of [X Y Z label_ids]
@@ -76,11 +76,11 @@ def visuallize_pointcloud(pointcloud: np.array,path:str,filename:str,palette:np.
         pcd.points = o3d.utility.Vector3dVector(xyz)
         pcd.colors = o3d.utility.Vector3dVector(colors)
         o3d.visualization.draw_geometries([pcd])
-        o3d.io.write_point_cloud(os.path.join(path,"results","painted_cloud",filename+".pcd"),pcd)
+        #o3d.io.write_point_cloud(os.path.join(path,"results","painted_cloud",filename+".pcd"),pcd)
         
         
         
-def visualize_with_window(pointcloud: np.array,path:str,filename:str,palette:np.array):
+def visualize_with_window(pointcloud: np.array,palette:np.array):
     semantics  = pointcloud[:, 3]
     xyz = pointcloud[:, 0:3]
     pcd = o3d.geometry.PointCloud()
@@ -96,13 +96,13 @@ def visualize_with_window(pointcloud: np.array,path:str,filename:str,palette:np.
     vis.destroy_window()
     
     
-def visualize_object(pointcloud: np.array,path:str,filename:str,palette:np.array):
+def visualize_object(pointcloud: np.array,palette:np.array):
     semantics  = pointcloud[:, 3]
     xyz = pointcloud[:, 0:3]
     pcd = o3d.geometry.PointCloud()
     
-    semantics_object  = pointcloud[np.where(pointcloud[:, 3]==13)][:, 3]
-    object = pointcloud[np.where(pointcloud[:, 3]==13)][:, 0:3]
+    semantics_object  = pointcloud[np.where(pointcloud[:, 3]!=8)][:, 3]
+    object = pointcloud[np.where(pointcloud[:, 3]!=8)][:, 0:3]
             
     
     colors = semantics_to_colors(semantics_object,palette)
